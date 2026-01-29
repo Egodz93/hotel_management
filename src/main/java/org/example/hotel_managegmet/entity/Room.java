@@ -1,16 +1,22 @@
 package org.example.hotel_managegmet.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import org.example.hotel_managegmet.entity.enums.RoomStatus;
 
+@Data
 @Entity
 @Table(name = "rooms")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id")
-    private Long roomId;
+    private Long id;
     private Integer roomNumber;
     private Integer floor;
+
+    @Enumerated(EnumType.STRING)
+    private RoomStatus status;
+
     private String viewType;
     private Boolean isSmoking;
 

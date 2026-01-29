@@ -6,15 +6,16 @@ import lombok.Data;
 import java.util.Set;
 @Data
 @Entity
-@Table(name = "amenities")
-public class Amenity {
+public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long serviceId;
     private String name;
     private String description;
-    private String icon;
+    private Double price;
+    private String category;
+    private Boolean isActive;
 
-    @ManyToMany(mappedBy = "amenities")
-    private Set<RoomType> roomTypes;
+    @OneToMany(mappedBy = "service")
+    private Set<ServiceRequest> serviceRequests;
 }

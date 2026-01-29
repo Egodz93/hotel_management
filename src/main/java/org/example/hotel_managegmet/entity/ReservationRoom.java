@@ -1,6 +1,9 @@
 package org.example.hotel_managegmet.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
 @Entity
 public class ReservationRoom {
     @Id

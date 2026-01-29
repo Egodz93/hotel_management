@@ -1,10 +1,13 @@
 package org.example.hotel_managegmet.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 import java.util.Set;
+@Data
 @Entity
+@Table(name = "room_types")
 public class RoomType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
