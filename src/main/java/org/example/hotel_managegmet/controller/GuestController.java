@@ -1,6 +1,7 @@
 package org.example.hotel_managegmet.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.hotel_managegmet.dto.request.GuestRequest;
 import org.example.hotel_managegmet.dto.response.ApiResponse;
@@ -31,9 +32,23 @@ public class GuestController {
                         .build()
         );
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<ApiResponse<GuestResponse>> getGuestById(
+            @PathVariable Long id,
+            HttpServletRequest request) {
+        return ResponseEntity.ok(
+                ApiResponse.<GuestResponse>builder()
+                        .code(HttpStatus.OK.value())
+                        .message("Lấy thông tin chi tiết khách hàng thành công")
+                        .timestamp(Instant.now().toString())
+                        .path(request.getRequestURI())
+                        .result(guestService.getGuestById(id))
+                        .build()
+        );
+    }
     @PostMapping
     public ResponseEntity<ApiResponse<GuestResponse>> createGuest(
+            @Valid
             @RequestBody GuestRequest guestRequest,
             HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -50,7 +65,7 @@ public class GuestController {
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<GuestResponse>> updateGuest(
             @PathVariable Long id,
-            @RequestBody GuestRequest guestRequest,
+            @Valid @RequestBody GuestRequest guestRequest,
             HttpServletRequest request) {
         return ResponseEntity.ok(
                 ApiResponse.<GuestResponse>builder()
@@ -73,6 +88,20 @@ public class GuestController {
                 ApiResponse.<Void>builder()
                         .code(HttpStatus.OK.value())
                         .message("Cộng điểm tích lũy thành công")
+                        .timestamp(Instant.now().toString())
+                        .path(request.getRequestURI())
+                        .build()
+        );
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<Void>> deleteGuest(
+            @PathVariable Long id,
+            HttpServletRequest request) {
+        guestService.deleteGuest(id);
+        return ResponseEntity.ok(
+                ApiResponse.<Void>builder()
+                        .code(HttpStatus.OK.value())
+                        .message("Xóa khách hàng thành công")
                         .timestamp(Instant.now().toString())
                         .path(request.getRequestURI())
                         .build()

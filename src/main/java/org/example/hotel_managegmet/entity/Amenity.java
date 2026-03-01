@@ -11,8 +11,11 @@ public class Amenity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(columnDefinition = "nvarchar(255)", nullable = false, unique = true)
     private String name;
+    @Column(columnDefinition = "nvarchar(255)")
     private String description;
+
     private String icon;
 
     @ManyToMany(mappedBy = "amenities")

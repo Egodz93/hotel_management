@@ -5,19 +5,23 @@ import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "reservation_rooms")
 public class ReservationRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private Double pricePerNight;
+
+    @Column(nullable = false)
     private Double totalPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "reservation_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_id", nullable = false)
     private Room room;
-
 }

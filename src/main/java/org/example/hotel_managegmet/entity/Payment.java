@@ -2,21 +2,32 @@ package org.example.hotel_managegmet.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.example.hotel_managegmet.entity.enums.PaymentMethod;
+import java.time.LocalDateTime;
 
-import java.time.LocalDate;
 @Data
 @Entity
-@Table(name ="payments")
+@Table(name = "payments")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private Double amount;
-    private String paymentMethod;
+
+    @Column(nullable = false)
+    private PaymentMethod paymentMethod;
+
+    @Column(length = 100)
     private String transactionId;
-    private LocalDate paidAt;
+
+    private LocalDateTime paidAt;
+
+    @Column(columnDefinition = "nvarchar(255)")
+    private String note;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name ="invoice_id")
+    @JoinColumn(name = "invoice_id", nullable = false)
     private Invoice invoice;
 }

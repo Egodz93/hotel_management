@@ -11,16 +11,21 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
     private Integer roomNumber;
+
+    @Column(nullable = false)
     private Integer floor;
 
-    @Enumerated(EnumType.STRING)
-    private RoomStatus status;
+    private RoomStatus status = RoomStatus.AVAILABLE;
 
+    @Column(columnDefinition = "nvarchar(100)")
     private String viewType;
-    private Boolean isSmoking;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "roomtype_id")
+    private Boolean isSmoking = false;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "room_type_id", nullable = false)
     private RoomType roomType;
 }

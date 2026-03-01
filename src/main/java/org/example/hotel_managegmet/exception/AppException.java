@@ -24,10 +24,4 @@ public class AppException extends RuntimeException {
         this.args = args;
     }
 
-    public AppException(ErrorCode errorCode, Throwable cause) {
-        super(errorCode.getMessage(), cause);
-        this.errorCode = errorCode;
-        this.httpStatus = errorCode.getHttpStatus();
-        this.args = null;
-    }
 }

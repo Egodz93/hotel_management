@@ -112,4 +112,20 @@ public class RoomController {
                         .build()
         );
     }
+    @GetMapping("/available")
+    public ResponseEntity<ApiResponse<List<RoomResponse>>> getAvailableRooms(
+            @RequestParam String checkIn,
+            @RequestParam String checkOut,
+            HttpServletRequest httpRequest) {
+
+        return ResponseEntity.ok(
+                ApiResponse.<List<RoomResponse>>builder()
+                        .code(HttpStatus.OK.value())
+                        .message("Tìm thấy danh sách phòng trống từ " + checkIn + " đến " + checkOut)
+                        .timestamp(Instant.now().toString())
+                        .path(httpRequest.getRequestURI())
+                        .result(roomService.findAvailableRooms(checkIn, checkOut))
+                        .build()
+        );
+    }
 }
